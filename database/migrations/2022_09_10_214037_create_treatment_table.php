@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('treatment', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description');
             $table->timestamps();
         });
     }

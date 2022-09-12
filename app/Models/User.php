@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'disease_id',
+        'parish_id',
+        'contagion_date',
     ];
 
     /**

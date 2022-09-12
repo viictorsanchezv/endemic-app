@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class News extends Model
 {
     use HasFactory;
 
+    protected $table="new"; 
 
     protected $fillable = [
-        'name',
+        'title',
         'description',
-        'country_id'
+        'date'
     ];
-
-    public function cities() {
-        return $this->hasMany(State::class, 'state_id', 'id');
-    }
 }
