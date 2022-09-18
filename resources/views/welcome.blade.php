@@ -55,7 +55,7 @@
 
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    This is the endemic app :D
+                                    <button type="button" class="btn btn-primary">Primary</button>
                                 </div>
                             </div>
                         </div>

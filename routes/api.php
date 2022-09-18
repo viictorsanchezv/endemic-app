@@ -19,4 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('/news','App\Http\Controllers\NewsController@index');
+Route::get("/news","App\Http\Controllers\NewsController@index_api");
+
+
+Route::get("/symptoms", "App\Http\Controllers\SymptomController@index_api");
