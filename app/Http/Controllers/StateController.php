@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\News;
-class NewsController extends Controller
+use App\Models\State;
+use App\Models\Country;
+class StateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,15 +14,13 @@ class NewsController extends Controller
      */
     public function index()
     {
-
-        $news = News::orderByDesc('id')->get();
-        return view('news.index', compact('news'));
-
+        $states = State::orderByDesc('id')->get();
+        return view('states.index', compact('states'));
     }
 
     public function index_api(){
-        $news = News::orderByDesc('id')->get();
-        return $news;
+        $states = State::orderByDesc('id')->get();
+        return $states;
     }
 
     /**
@@ -31,7 +30,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('news.create');
+        $countries = Country::orderByDesc('id')->get();
+        return view('states.create', compact('countries'));
     }
 
     /**
@@ -43,14 +43,14 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'         => 'required',
+            'name'          => 'required',
             'description'   => 'required',
-            'date'          => 'required',
+            'country_id'    => 'required'
         ]);
         
-        News::create($request->post());
+        State::create($request->post());
 
-        return redirect()->route('news.index')->with('success','New has been created successfully.');
+        return redirect()->route('states.index')->with('success','State has been created successfully.');
     }
 
     /**
@@ -59,9 +59,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(News $new)
+    public function show(State $state)
     {
-        return view('news.show',compact('new'));
+        return view('states.show',compact('state'));
     }
 
     /**
@@ -70,11 +70,11 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($new_id)
+    public function edit($state_id)
     {
-        $new = News::find( $new_id );
+        $state = State::find( $state_id );
     
-        return view('news.edit',compact('new'));
+        return view('states.edit',compact('state'));
     }
 
     /**
@@ -84,17 +84,17 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $new_id)
+    public function update(Request $request, $state_id)
     {
         $request->validate([
-            'title'         => 'required',
+            'name'          => 'required',
             'description'   => 'required',
-            'date'          => 'required',
+            
         ]);
-        $new = News::find( $new_id );
-        $new->fill($request->post())->save();
+        $state = State::find( $state_id );
+        $state->fill($request->post())->save();
 
-        return redirect()->route('news.index')->with('success','New Has Been updated successfully');
+        return redirect()->route('states.index')->with('success','State Has Been updated successfully');
     }
 
     /**
@@ -103,11 +103,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($new_id)
+    public function destroy($state_id)
     {
-        $new = News::find( $new_id );
-        $new->delete();
-       // $new->delete();
-        return redirect()->route('news.index')->with('success','New has been deleted successfully');
+        $state = State::find( $state_id );
+        $state->delete();
+        return redirect()->route('states.index')->with('success','State has been deleted successfully');
     }
 }

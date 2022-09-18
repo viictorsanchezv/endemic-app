@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
- 
-
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\StateController;
+//use App\Http\Controllers\CityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +25,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('news', NewsController::class);
+Route::resource('countries', CountryController::class);
+Route::resource('states', StateController::class);
+//Route::resource('cities', CountryController::class);

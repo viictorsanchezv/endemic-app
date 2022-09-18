@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\News;
-class NewsController extends Controller
+use App\Models\Country;
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,15 +13,14 @@ class NewsController extends Controller
      */
     public function index()
     {
-
-        $news = News::orderByDesc('id')->get();
-        return view('news.index', compact('news'));
+        $countries = Country::orderByDesc('id')->get();
+        return view('countries.index', compact('countries'));
 
     }
 
     public function index_api(){
-        $news = News::orderByDesc('id')->get();
-        return $news;
+        $countries = Country::orderByDesc('id')->get();
+        return $countries;
     }
 
     /**
@@ -31,7 +30,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('news.create');
+        return view('countries.create');
     }
 
     /**
@@ -43,14 +42,13 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'         => 'required',
+            'name'          => 'required',
             'description'   => 'required',
-            'date'          => 'required',
         ]);
         
-        News::create($request->post());
+        Country::create($request->post());
 
-        return redirect()->route('news.index')->with('success','New has been created successfully.');
+        return redirect()->route('countries.index')->with('success','Country has been created successfully.');
     }
 
     /**
@@ -59,9 +57,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(News $new)
+    public function show(Country $country)
     {
-        return view('news.show',compact('new'));
+        return view('countries.show',compact('country'));
     }
 
     /**
@@ -70,11 +68,11 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($new_id)
+    public function edit($country_id)
     {
-        $new = News::find( $new_id );
+        $country = Country::find( $country_id );
     
-        return view('news.edit',compact('new'));
+        return view('countries.edit',compact('country'));
     }
 
     /**
@@ -84,17 +82,17 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $new_id)
+    public function update(Request $request, $country_id)
     {
         $request->validate([
-            'title'         => 'required',
+            'name'          => 'required',
             'description'   => 'required',
-            'date'          => 'required',
+            
         ]);
-        $new = News::find( $new_id );
-        $new->fill($request->post())->save();
+        $country = Country::find( $country_id );
+        $country->fill($request->post())->save();
 
-        return redirect()->route('news.index')->with('success','New Has Been updated successfully');
+        return redirect()->route('countries.index')->with('success','Country Has Been updated successfully');
     }
 
     /**
@@ -103,11 +101,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($new_id)
+    public function destroy($country_id)
     {
-        $new = News::find( $new_id );
-        $new->delete();
-       // $new->delete();
-        return redirect()->route('news.index')->with('success','New has been deleted successfully');
+        $country = Country::find( $country_id );
+        $country->delete();
+        return redirect()->route('countries.index')->with('success','Country has been deleted successfully');
     }
 }

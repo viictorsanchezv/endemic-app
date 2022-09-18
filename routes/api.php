@@ -21,5 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/news","App\Http\Controllers\NewsController@index_api");
 
+Route::get("/countries","App\Http\Controllers\CountryController@index_api");
 
 Route::get("/symptoms", "App\Http\Controllers\SymptomController@index_api");
