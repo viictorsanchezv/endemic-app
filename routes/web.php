@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\StateController;
-//use App\Http\Controllers\CityController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\ParishController;
+use App\Http\Controllers\TreatmentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,4 +29,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('news', NewsController::class);
 Route::resource('countries', CountryController::class);
 Route::resource('states', StateController::class);
-//Route::resource('cities', CountryController::class);
+Route::resource('cities', CityController::class);
+Route::resource('parishes', ParishController::class);
+Route::resource('treatments', TreatmentController::class);
