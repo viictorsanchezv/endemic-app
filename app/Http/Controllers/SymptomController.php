@@ -13,10 +13,14 @@ class SymptomController extends Controller
      */
     public function index()
     {
-        $symptoms = Symptom::all();
-        return $symptoms;
+        $symptoms = Symptom::orderByDesc('id')->get();
+        return view('symptoms.index', compact('symptoms'));
     }
 
+    public function index_api(){
+        $symptoms = Symptom::orderByDesc('id')->get();
+        return $symptoms;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +28,7 @@ class SymptomController extends Controller
      */
     public function create()
     {
-        //return view('companies.create');
+        return view('symptoms.create');
     }
 
     /**
@@ -35,7 +39,15 @@ class SymptomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'          => 'required',
+            'description'   => 'required',
+            
+        ]);
+        
+        Symptom::create($request->post());
+
+        return redirect()->route('symptoms.index')->with('success','Symptom has been created successfully.');
     }
 
     /**
@@ -44,9 +56,9 @@ class SymptomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Symptom $symptom)
     {
-        //
+        return view('symptoms.show',compact('symptom'));
     }
 
     /**
@@ -55,9 +67,11 @@ class SymptomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($symptom_id)
     {
-        //
+        $symptom = Symptom::find( $symptom_id );
+    
+        return view('symptoms.edit',compact('symptom'));
     }
 
     /**
@@ -67,9 +81,17 @@ class SymptomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $symptom_id)
     {
-        //
+        $request->validate([
+            'name'          => 'required',
+            'description'   => 'required',
+            
+        ]);
+        $symptom = Symptom::find( $symptom_id );
+        $symptom->fill($request->post())->save();
+
+        return redirect()->route('symptoms.index')->with('success','Symptom Has Been updated successfully');
     }
 
     /**
@@ -78,8 +100,10 @@ class SymptomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($symptom_id)
     {
-        //
+        $symptom = Symptom::find( $symptom_id );
+        $symptom->delete();
+        return redirect()->route('symptoms.index')->with('success','Symptom has been deleted successfully');
     }
 }
