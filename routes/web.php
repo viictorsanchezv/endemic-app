@@ -7,6 +7,8 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ParishController;
 use App\Http\Controllers\TreatmentController;
+use App\Http\Controllers\CauseController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,3 +34,4 @@ Route::resource('states', StateController::class);
 Route::resource('cities', CityController::class);
 Route::resource('parishes', ParishController::class);
 Route::resource('treatments', TreatmentController::class);
+Route::resource('causes', CauseController::class);

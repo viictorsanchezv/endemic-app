@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('cause_disease', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cause_id')->constrained('cause')
+            $table->foreignId('cause_id')->constrained('causes')
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('disease_id')->constrained('disease')
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');
