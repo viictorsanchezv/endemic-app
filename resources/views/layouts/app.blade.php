@@ -55,11 +55,36 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('treatments.index') }}">
+                                        {{ __('Treatments') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('causes.index') }}">
+                                        {{ __('Causes') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('symptoms.index') }}">
+                                        {{ __('Symptoms') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('countries.index') }}">
+                                        {{ __('Countries') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('states.index') }}">
+                                        {{ __('States') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('cities.index') }}">
+                                        {{ __('Cities') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('parishes.index') }}">
+                                        {{ __('Parish') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('news.index') }}">
+                                        {{ __('News') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
