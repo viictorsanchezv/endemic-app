@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>News</h2>
+                    <h2>Noticias</h2>
                 </div>
                 <div class="pull-right mb-2">
-                    <a class="btn btn-success" href="{{ route('news.create') }}"> Create New</a>
+                    <a class="btn btn-success" href="{{ route('news.create') }}"> Crear Noticia</a>
                 </div>
             </div>
         </div>
@@ -21,10 +21,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>New Title</th>
-                    <th>New Description</th>
-                    <th>New Date</th>
-                    <th width="280px">Action</th>
+                    <th>Titulo de Noticia</th>
+                    <th>Descripcion de Noticia</th>
+                    <th>Fecha</th>
+                    <th width="280px">Accion</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,10 +36,10 @@
                         <td>{{ $new->date }}</td>
                         <td>
                             <form action="{{ route('news.destroy',$new->id) }}" method="POST">
-                                <a class="btn btn-primary" href="{{ route('news.edit',$new->id) }}">Edit</a>
+                                <a class="btn btn-primary" href="{{ route('news.edit',$new->id) }}">Editar</a>
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger">Borrar</button>
                             </form>
                         </td>
                     </tr>

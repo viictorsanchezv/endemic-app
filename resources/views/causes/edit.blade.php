@@ -4,12 +4,12 @@
     <div class="container mt-2">
         <div class="row">
             <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                    <h2>Edit Cause</h2>
+                <div class="pull-left mt-3">
+                    <h2>Editar Causa</h2>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('causes.index') }}" enctype="multipart/form-data">
-                        Back</a>
+                    <a class="btn btn-primary  mt-3" href="{{ route('causes.index') }}" enctype="multipart/form-data">
+                        Atras</a>
                 </div>
             </div>
         </div>
@@ -23,9 +23,9 @@
             @method('PUT')
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Cause Name:</strong>
-                        <input type="text" name="name" value="{{ $cause->name }}" class="form-control"
+                    <div class="form-group  mt-3">
+                        <strong>Nombre:</strong>
+                        <input type="text" name="name" value="{{ $cause->name }}" class="form-control  mt-3"
                             placeholder="Cause name">
                         @error('name')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -33,16 +33,16 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Cause Description:</strong>
-                        <textarea name="description" class="form-control" placeholder="Cause Description"
+                    <div class="form-group  mt-3">
+                        <strong>Descripcion:</strong>
+                        <textarea name="description" class="form-control  mt-3" 
                             value="{{ $cause->description }}">{{ $cause->description }} </textarea>
                         @error('email')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary ml-3">Submit</button>
+                <button type="submit" class="btn btn-primary ml-3 mt-5">Editar</button>
             </div>
         </form>
     </div>

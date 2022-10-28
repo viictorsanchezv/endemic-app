@@ -21,12 +21,13 @@ use App\Http\Controllers\SymptomController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::resource('news', NewsController::class);
 Route::resource('countries', CountryController::class);

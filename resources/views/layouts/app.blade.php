@@ -20,9 +20,15 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Endemic App') }}
                 </a>
+                @else
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    {{ config('app.name', 'Endemic App') }}
+                </a>
+                @endguest
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -39,13 +45,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar sesion') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                                 </li>
                             @endif
                         @else
@@ -56,33 +62,33 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('treatments.index') }}">
-                                        {{ __('Treatments') }}
+                                        {{ __('Tratamientos') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('causes.index') }}">
-                                        {{ __('Causes') }}
+                                        {{ __('Causas') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('symptoms.index') }}">
-                                        {{ __('Symptoms') }}
+                                        {{ __('Sintomas') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('countries.index') }}">
-                                        {{ __('Countries') }}
+                                        {{ __('Paises') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('states.index') }}">
-                                        {{ __('States') }}
+                                        {{ __('Estados') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('cities.index') }}">
-                                        {{ __('Cities') }}
+                                        {{ __('Ciudades') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('parishes.index') }}">
-                                        {{ __('Parish') }}
+                                        {{ __('Parroquias') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('news.index') }}">
-                                        {{ __('News') }}
+                                        {{ __('Noticias') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Cerrar Sesion') }}
                                     </a>
 
 

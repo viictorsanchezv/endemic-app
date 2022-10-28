@@ -5,11 +5,11 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>Edit Parish</h2>
+                    <h2>Editar Parroquia</h2>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-primary" href="{{ route('parishes.index') }}" enctype="multipart/form-data">
-                        Back</a>
+                        Atras</a>
                 </div>
             </div>
         </div>
@@ -23,26 +23,25 @@
             @method('PUT')
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Parish Name:</strong>
-                        <input type="text" name="name" value="{{ $parish->name }}" class="form-control"
-                            placeholder="Parish name">
+                    <div class="form-group mt-3">
+                        <strong>Nombre:</strong>
+                        <input type="text" name="name" value="{{ $parish->name }}" class="form-control mt-3">
                         @error('name')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Parish Description:</strong>
-                        <textarea name="description" class="form-control" placeholder="Parish Description"
+                    <div class="form-group mt-3">
+                        <strong>Descripcion:</strong>
+                        <textarea name="description" class="form-control mt-3" 
                             value="{{ $parish->description }}">{{ $parish->description }} </textarea>
                         @error('email')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary ml-3">Submit</button>
+                <button type="submit" class="btn btn-primary ml-3">Editar</button>
             </div>
         </form>
     </div>

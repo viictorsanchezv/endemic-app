@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>Countries</h2>
+                    <h2>Paises</h2>
                 </div>
                 <div class="pull-right mb-2">
-                    <a class="btn btn-success" href="{{ route('countries.create') }}"> Create Country</a>
+                    <a class="btn btn-success" href="{{ route('countries.create') }}"> Crear pais</a>
                 </div>
             </div>
         </div>
@@ -21,9 +21,9 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Country Name</th>
-                    <th>Country Description</th>
-                    <th width="280px">Action</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th width="280px">Accion</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,10 +34,10 @@
                         <td>{{ $country->description }}</td>
                         <td>
                             <form action="{{ route('countries.destroy',$country->id) }}" method="POST">
-                                <a class="btn btn-primary" href="{{ route('countries.edit',$country->id) }}">Edit</a>
+                                <a class="btn btn-primary" href="{{ route('countries.edit',$country->id) }}">Editar</a>
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger">Borrar</button>
                             </form>
                         </td>
                     </tr>
