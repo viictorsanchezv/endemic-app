@@ -15,6 +15,12 @@
                     @endif
 
                     <div class="alert alert-primary" role="alert">
+                        <a href="{{ route('diseases.index') }}">
+                            {{ __('Enfermedades') }}
+                        </a>
+                    </div>
+
+                    <div class="alert alert-primary" role="alert">
                         <a href="{{ route('treatments.index') }}">
                             {{ __('Tratamientos') }}
                         </a>

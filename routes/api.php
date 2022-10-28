@@ -28,3 +28,4 @@ Route::get("/parishes","App\Http\Controllers\ParishController@index_api");
 Route::get("/symptoms", "App\Http\Controllers\SymptomController@index_api");
 Route::get("/treatments", "App\Http\Controllers\TreatmentController@index_api");
 Route::get("/causes", "App\Http\Controllers\CauseController@index_api");
+Route::get("/diseases", "App\Http\Controllers\DiseaseController@index_api");

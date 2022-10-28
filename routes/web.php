@@ -9,6 +9,7 @@ use App\Http\Controllers\ParishController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\CauseController;
 use App\Http\Controllers\SymptomController;
+use App\Http\Controllers\DiseaseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,3 +38,4 @@ Route::resource('parishes', ParishController::class);
 Route::resource('treatments', TreatmentController::class);
 Route::resource('causes', CauseController::class);
 Route::resource('symptoms', SymptomController::class);
+Route::resource('diseases', DiseaseController::class);
