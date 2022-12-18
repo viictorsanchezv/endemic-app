@@ -17,6 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->string('aedic_index');
+            $table->string('temperature');
+            $table->string('humidity');
+            $table->string('population');
             $table->foreignId('state_id');
             $table->timestamps();
         });

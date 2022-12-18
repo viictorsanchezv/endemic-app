@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Treatment;
 use Illuminate\Http\Request;
+use App\Models\Bitacora;
+use Auth;
 
 class TreatmentController extends Controller
 {
@@ -47,7 +49,14 @@ class TreatmentController extends Controller
             
         ]);
         
-        Treatment::create($request->post());
+        $treatment = Treatment::create($request->post());
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Treatment created',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been created a Treatment with the ID number. '.$treatment->id,
+            
+            ]);
 
         return redirect()->route('treatments.index')->with('success','Treatment has been created successfully.');
     }
@@ -92,7 +101,14 @@ class TreatmentController extends Controller
         ]);
         $treatment = Treatment::find( $treatment_id );
         $treatment->fill($request->post())->save();
-
+        
+        Bitacora::create([
+            'user_id'       => Auth::user()->id,
+            'name'          => 'Treatment updated',
+            'description'   =>'User with the ID number: '.Auth::user()->id.' has been updated a Treatment with the ID number. '.$treatment_id,
+            
+            ]);
+            
         return redirect()->route('treatments.index')->with('success','Treatment Has Been updated successfully');
     }
 
@@ -106,6 +122,14 @@ class TreatmentController extends Controller
     {
         $treatment = Treatment::find( $treatment_id );
         $treatment->delete();
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Treatment removed',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been removed a Treatment with the ID number. '.$treatment_id,
+            
+            ]);
+            
         return redirect()->route('treatments.index')->with('success','Treatment has been deleted successfully');
     }
 }

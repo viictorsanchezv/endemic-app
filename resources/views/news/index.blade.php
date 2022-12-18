@@ -1,31 +1,29 @@
-@extends('layouts.app')
+@extends('layouts.app', ['page' => __('Noticias'), 'pageSlug' => 'noticias'])
 
 @section('content')
-    <div class="container mt-2">
+  <div class="row">
+    <div class="col-md-12">
         <div class="row">
             <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
+                <div class="">
                     <h2>Noticias</h2>
                 </div>
-                <div class="pull-right mb-2">
-                    <a class="btn btn-success" href="{{ route('news.create') }}"> Crear Noticia</a>
+                <div class=" mb-2">
+                    <a class="btn btn-success" href="{{ route('news.create') }}"> Crear noticia</a>
                 </div>
             </div>
         </div>
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Titulo de Noticia</th>
-                    <th>Descripcion de Noticia</th>
-                    <th>Fecha</th>
-                    <th width="280px">Accion</th>
+      <div class="card">
+        <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+                 <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Titulo de Noticia</th>
+                    <th scope="col">Descripcion de Noticia</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Accion</th>
                 </tr>
+               
             </thead>
             <tbody>
                 @foreach ($news as $new)
@@ -39,13 +37,14 @@
                                 <a class="btn btn-primary" href="{{ route('news.edit',$new->id) }}">Editar</a>
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Borrar</button>
+                                <button type="submit" class="btn btn-danger mt-1">Borrar</button>
                             </form>
                         </td>
                     </tr>
-                    @endforeach
+                @endforeach
             </tbody>
         </table>
-        
+      </div>
     </div>
+  </div>
 @endsection

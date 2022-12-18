@@ -2,7 +2,17 @@
 
 namespace App\Http\Controllers;
 use App\Models\Disease;
+use App\Models\DiseaseSymptoms;
+use App\Models\Cause;
+use App\Models\CauseDisease;
+use App\Models\Symptom;
+use App\Models\Treatment;
+use App\Models\DiseaseTreatment;
+use App\Models\City;
+use App\Models\CityDisease;
 use Illuminate\Http\Request;
+use App\Models\Bitacora;
+use Auth;
 
 class DiseaseController extends Controller
 {
@@ -29,7 +39,11 @@ class DiseaseController extends Controller
      */
     public function create()
     { 
-        return view('diseases.create');
+        $symptoms = Symptom::orderByDesc('id')->get();
+        $causes = Cause::orderByDesc('id')->get();
+        $treatments = Treatment::orderByDesc('id')->get();
+        $cities = City::orderByDesc('id')->get();
+        return view('diseases.create',compact('symptoms', 'causes','treatments','cities'));
     }
 
     /**
@@ -40,14 +54,33 @@ class DiseaseController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'          => 'required',
-            'description'   => 'required',
-            
-        ]);
         
-        Disease::create($request->post());
+        $disease = Disease::create(['name'          => $request->name, 
+                                    'description'   => $request->description]);
 
+        DiseaseSymptoms::create([   'symptoms_id'    => $request->symptoms_id,
+                                    'disease_id'     => $disease->id]);
+
+        CauseDisease::create([  'cause_id'      => $request->symptoms_id,
+                                'disease_id'    => $disease->id]);
+
+        DiseaseTreatment::create([  'treatments_id' => $request->treatments_id,
+                                    'disease_id'    => $disease->id]);                    
+     
+        CityDisease::create([   'date'      => $request->date,
+                                'cases'     => $request->cases,
+                                'disease_id'=> $disease->id,
+                                'city_id'   => $request->city_id,
+                            
+                            ]); 
+                                
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Disease created',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been created a Disease with the ID number. '.$disease->id,
+            
+            ]);
+            
         return redirect()->route('diseases.index')->with('success','Disease has been created successfully.');
     }
 
@@ -70,9 +103,15 @@ class DiseaseController extends Controller
      */
     public function edit($disease_id )
     {
-        $disease = Treatment::find( $disease_id );
-    
-        return view('diseases.edit',compact('disease'));
+        $disease = Disease::find( $disease_id );
+        $symptoms = Symptom::orderByDesc('id')->get();
+        $causes = Cause::orderByDesc('id')->get();
+        $treatments = Treatment::orderByDesc('id')->get();
+        $cities = City::orderByDesc('id')->get();
+        
+        
+        
+        return view('diseases.edit',compact('disease','symptoms', 'causes','treatments','cities'));
     }
 
     /**
@@ -91,6 +130,14 @@ class DiseaseController extends Controller
         ]);
         $disease = Disease::find( $disease_id );
         $disease->fill($request->post())->save();
+        
+        Bitacora::create([
+            'user_id'       => Auth::user()->id,
+            'name'          => 'Disease updated',
+            'description'   =>'User with the ID number: '.Auth::user()->id.' has been updated a Disease with the ID number. '.$disease_id,
+            
+            ]);
+            
 
         return redirect()->route('diseases.index')->with('success','Disease Has Been updated successfully');
     }
@@ -105,6 +152,14 @@ class DiseaseController extends Controller
     {
         $disease = Disease::find( $disease_id );
         $disease->delete();
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Disease removed',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been removed a Disease with the ID number. '.$disease_id,
+            
+            ]);
+            
         return redirect()->route('diseases.index')->with('success','Disease has been deleted successfully');
     }
 }

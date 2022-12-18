@@ -1,29 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.app', ['page' => __('Pais'), 'pageSlug' => 'estados'])
 
 @section('content')
-    <div class="container mt-2">
+  <div class="row">
+    <div class="col-md-12">
         <div class="row">
             <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
+                <div class="">
                     <h2>Estados</h2>
                 </div>
-                <div class="pull-right mb-2">
-                    <a class="btn btn-success mt-3" href="{{ route('states.create') }}"> Crear Estado</a>
+                <div class=" mb-2">
+                    <a class="btn btn-success" href="{{ route('states.create') }}"> Crear estado</a>
                 </div>
             </div>
         </div>
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-        <table class="table table-bordered">
-            <thead>
+      <div class="card">
+        <table class="table tablesorter " id="">
+            <thead class=" text-primary">
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th width="280px">Accion</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Accion</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,9 +38,10 @@
                             </form>
                         </td>
                     </tr>
-                    @endforeach
+                @endforeach
             </tbody>
         </table>
-        
+      </div>
     </div>
+  </div>
 @endsection

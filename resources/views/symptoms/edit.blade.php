@@ -1,49 +1,40 @@
-@extends('layouts.app')
+@extends('layouts.app', ['page' => __('Sintomas'), 'pageSlug' => 'sintomas'])
 
 @section('content')
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                    <h2>Editar sintoma</h2>
-                </div>
-                <div class="pull-right mt-3">
-                    <a class="btn btn-primary" href="{{ route('symptoms.index') }}" enctype="multipart/form-data">
-                        Atras</a>
-                </div>
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="">
+                <h2>Editar Sintoma</h2>
             </div>
+           
+            <a class="btn btn-primary" href="{{ route('symptoms.index') }}"> Atras</a>
+        
         </div>
-        @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-            {{ session('status') }}
-        </div>
-        @endif
-        <form action="{{ route('symptoms.update',$symptom ) }}"  method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group mt-3">
-                        <strong>Nombre:</strong>
-                        <input type="text" name="name" value="{{ $symptom->name }}" class="form-control mt-3"
-                            placeholder="Symptom name">
-                        @error('name')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group mt-3">
-                        <strong>Descripcion:</strong>
-                        <textarea name="description" class="form-control mt-3"
-                            value="{{ $symptom->description }}">{{ $symptom->description }} </textarea>
-                        @error('email')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary ml-3">Editar</button>
-            </div>
-        </form>
     </div>
+  <div class="row">
+    <div class="col-md-12">
+        <div class="card mt-3">
+          <div class="card-body">
+            <form action="{{ route('symptoms.update',$symptom ) }}" method="POST" enctype="multipart/form-data">
+               @csrf
+               @method('PUT')
+              <div class="form-group mt-3">
+                <label for="exampleInputEmail1">Nombre</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $symptom->name }}" >
+                <small  class="form-text text-muted">Nombre del sintoma.</small>
+              </div>
+              
+              <div class="form-group mt-3">
+                <label for="exampleInputPassword1">Descripcion</label>
+                <input type="text" class="form-control" name="description" value="{{ $symptom->description }}" >
+                <small class="form-text text-muted" >Pequeña descripcion acerca del sintoma.</small>
+              </div>
+              
+              
+              <button type="submit" class="btn btn-primary">Actualizar</button>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
 @endsection

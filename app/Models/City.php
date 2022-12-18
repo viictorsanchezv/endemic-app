@@ -12,7 +12,11 @@ class City extends Model
     protected $fillable = [
         'name',
         'description',
-        'state_id'
+        'aedic_index',
+        'temperature',
+        'humidity',
+        'population',
+        'state_id',
     ];
 
     public function parish() {

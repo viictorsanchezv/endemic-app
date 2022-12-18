@@ -44,8 +44,12 @@ class CityController extends Controller
     {
         $request->validate([
             'name'          => 'required',
-            'description'   => 'required',
-            'state_id'      => 'required'
+            'description'   => 'required',  
+            "aedic_index"   => 'required',
+            "temperature"   => 'required',
+            "humidity"      => 'required',
+            "population"    => 'required',
+            'state_id'      => 'required',
         ]);
         
         City::create($request->post());

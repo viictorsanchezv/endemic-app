@@ -12,7 +12,7 @@ class DiseaseSymptoms extends Model
     protected $table="disease_symptoms";
 
     protected $fillable = [
-        'symptom_id',
+        'symptoms_id',
         'disease_id'
     ];
 

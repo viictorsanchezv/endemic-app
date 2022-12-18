@@ -17,7 +17,11 @@ class CitySeeder extends Seeder
         $cities = [
             [   "name"          => "San Cristobal",
                 "description"   => "Ciudad de Tachira",
-                "state_id"      =>  1
+                "state_id"      =>  1,
+                "aedic_index"   => "21.6%",
+                "temperature"   => "22 C",
+                "humidity"      => "72%",
+                "population"    =>  "578.648"
             ]
 
         ];

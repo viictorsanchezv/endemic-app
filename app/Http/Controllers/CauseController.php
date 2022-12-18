@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cause;
+use App\Models\Bitacora;
+use Auth;
+
 class CauseController extends Controller
 {
     /**
@@ -45,7 +48,14 @@ class CauseController extends Controller
             
         ]);
         
-        Cause::create($request->post());
+        $cause = Cause::create($request->post());
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Cause created',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been created a Cause with the ID number. '.$cause->id,
+            
+            ]);
+            
 
         return redirect()->route('causes.index')->with('success','Cause has been created successfully.');
     }
@@ -90,7 +100,14 @@ class CauseController extends Controller
         ]);
         $cause = Cause::find( $cause_id );
         $cause->fill($request->post())->save();
-
+        
+        Bitacora::create([
+            'user_id'       => Auth::user()->id,
+            'name'          => 'Cause updated',
+            'description'   =>'User with the ID number: '.Auth::user()->id.' has been updated a Cause with the ID number. '.$cause_id,
+            
+            ]);
+            
         return redirect()->route('causes.index')->with('success','Cause Has Been updated successfully');
     }
 
@@ -104,6 +121,15 @@ class CauseController extends Controller
     {
         $cause = Cause::find( $cause_id );
         $cause->delete();
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Cause removed',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been removed a Cause with the ID number. '.$country_id,
+            
+            ]);
+            
+            
         return redirect()->route('causes.index')->with('success','Cause has been deleted successfully');
     }
 }

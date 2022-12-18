@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Symptom;
 use Illuminate\Http\Request;
+use App\Models\Bitacora;
+use Auth;
 
 class SymptomController extends Controller
 {
@@ -45,7 +47,15 @@ class SymptomController extends Controller
             
         ]);
         
-        Symptom::create($request->post());
+        $symptom = Symptom::create($request->post());
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Symptom created',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been created a Symptom with the ID number. '.$symptom->id,
+            
+            ]);
+            
 
         return redirect()->route('symptoms.index')->with('success','Symptom has been created successfully.');
     }
@@ -90,6 +100,14 @@ class SymptomController extends Controller
         ]);
         $symptom = Symptom::find( $symptom_id );
         $symptom->fill($request->post())->save();
+        
+        Bitacora::create([
+            'user_id'       => Auth::user()->id,
+            'name'          => 'Symptom updated',
+            'description'   =>'User with the ID number: '.Auth::user()->id.' has been updated a Symptom with the ID number. '.$symptom_id,
+            
+            ]);
+            
 
         return redirect()->route('symptoms.index')->with('success','Symptom Has Been updated successfully');
     }
@@ -104,6 +122,14 @@ class SymptomController extends Controller
     {
         $symptom = Symptom::find( $symptom_id );
         $symptom->delete();
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Symptom removed',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been removed a Symptom with the ID number. '.$symptom_id,
+            
+            ]);
+            
         return redirect()->route('symptoms.index')->with('success','Symptom has been deleted successfully');
     }
 }

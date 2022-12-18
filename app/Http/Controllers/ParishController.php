@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\City;
 use App\Models\Parish;
+use App\Models\Bitacora;
+use Auth;
+
 class ParishController extends Controller
 {
     /**
@@ -48,7 +51,16 @@ class ParishController extends Controller
             
         ]);
         
-        Parish::create($request->post());
+        $parish = Parish::create($request->post());
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Parish created',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been created a Parish with the ID number. '.$parish->id,
+            
+            ]);
+            
+            
 
         return redirect()->route('parishes.index')->with('success','Parish has been created successfully.');
     }
@@ -93,6 +105,13 @@ class ParishController extends Controller
         ]);
         $parish = Parish::find( $parish_id );
         $parish->fill($request->post())->save();
+        
+        Bitacora::create([
+            'user_id'       => Auth::user()->id,
+            'name'          => 'Parish updated',
+            'description'   =>'User with the ID number: '.Auth::user()->id.' has been updated a Parish with the ID number. '.$parish_id,
+            
+            ]);
 
         return redirect()->route('parishes.index')->with('success','Parish Has Been updated successfully');
     }
@@ -107,6 +126,14 @@ class ParishController extends Controller
     {
         $parish = City::find( $parish_id );
         $parish->delete();
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Parish removed',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been removed a News with the ID number. '.$parish_id,
+            
+            ]);
+            
         return redirect()->route('cities.index')->with('success','Parish has been deleted successfully');
     }
 }

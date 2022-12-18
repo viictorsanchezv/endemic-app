@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Models\Bitacora;
+use Auth;
+
 class NewsController extends Controller
 {
     /**
@@ -48,7 +51,16 @@ class NewsController extends Controller
             'date'          => 'required',
         ]);
         
-        News::create($request->post());
+        $new  = News::create($request->post());
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'News created',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been created a News with the ID number. '.$new->id,
+            
+            ]);
+            
+            
 
         return redirect()->route('news.index')->with('success','New has been created successfully.');
     }
@@ -93,6 +105,15 @@ class NewsController extends Controller
         ]);
         $new = News::find( $new_id );
         $new->fill($request->post())->save();
+        
+        Bitacora::create([
+            'user_id'       => Auth::user()->id,
+            'name'          => 'News updated',
+            'description'   =>'User with the ID number: '.Auth::user()->id.' has been updated a News with the ID number. '.$new_id,
+            
+            ]);
+            
+
 
         return redirect()->route('news.index')->with('success','New Has Been updated successfully');
     }
@@ -107,7 +128,14 @@ class NewsController extends Controller
     {
         $new = News::find( $new_id );
         $new->delete();
-       // $new->delete();
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'News removed',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been removed a News with the ID number. '.$new_id,
+            
+            ]);
+            
         return redirect()->route('news.index')->with('success','New has been deleted successfully');
     }
 }

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Country;
+use App\Models\Bitacora;
+use Auth;
+
 class CountryController extends Controller
 {
     /**
@@ -46,8 +49,15 @@ class CountryController extends Controller
             'description'   => 'required',
         ]);
         
-        Country::create($request->post());
-
+        
+        $country = Country::create($request->post());
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Country created',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been created a Country with the ID number. '.$country->id,
+            
+            ]);
+        
         return redirect()->route('countries.index')->with('success','Country has been created successfully.');
     }
 
@@ -91,7 +101,14 @@ class CountryController extends Controller
         ]);
         $country = Country::find( $country_id );
         $country->fill($request->post())->save();
-
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Country updated',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been updated a Country with the ID number. '.$country_id,
+            
+            ]);
+            
         return redirect()->route('countries.index')->with('success','Country Has Been updated successfully');
     }
 
@@ -105,6 +122,14 @@ class CountryController extends Controller
     {
         $country = Country::find( $country_id );
         $country->delete();
+        
+        Bitacora::create([
+            'user_id'   => Auth::user()->id,
+            'name'      => 'Country removed',
+            'description'=>'User with the ID number: '.Auth::user()->id.' has been removed a Country with the ID number. '.$country_id,
+            
+            ]);
+            
         return redirect()->route('countries.index')->with('success','Country has been deleted successfully');
     }
 }
